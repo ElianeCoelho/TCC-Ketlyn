@@ -1,7 +1,7 @@
 // Atualiza o contador do carrinho
 function atualizarContadorCarrinho() {
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    document.getElementById('contador-carrinho').textContent = carrinho.length;
+    document.getElementById('contador-carrinho').textContent = carrinho.reduce((total, produto) => total + produto.quantidade, 0);
 }
 
 // Função para adicionar um produto ao carrinho
@@ -15,7 +15,16 @@ function adicionarAoCarrinho(id) {
             return response.json();
         })
         .then(produto => {
-            carrinho.push(produto);
+            // Verifica se o produto já está no carrinho
+            const produtoExistente = carrinho.find(item => item.id === produto.id);
+            if (produtoExistente) {
+                // Incrementa a quantidade se já estiver no carrinho
+                produtoExistente.quantidade++;
+            } else {
+                // Adiciona com quantidade inicial de 1
+                produto.quantidade = 1;
+                carrinho.push(produto);
+            }
 
             localStorage.setItem('carrinho', JSON.stringify(carrinho));
 
@@ -30,6 +39,7 @@ function adicionarAoCarrinho(id) {
         })
         .catch(error => console.error('Erro ao adicionar o produto ao carrinho:', error));
 }
+
 
 // Função para carregar os itens do carrinho e exibi-los
 function carregarCarrinho() {
@@ -55,23 +65,45 @@ function carregarCarrinho() {
                 <div class="produto-detalhes">
                     <img class="produto-imagem" src="${produto.imagem}" alt="${produto.nome}">
                     <span class="produto-nome">${produto.nome}</span>
+                    <span class="produto-quantidade">${produto.quantidade} kg</span>
                 </div>
-                <span class="produto-preco">R$ ${parseFloat(produto.preco).toFixed(2)}</span>
-                <button class="remover-produto" onclick="removerDoCarrinho(${index})">Remover</button>
+                <button class="adicionar-produto" onclick="adicionarQuantidade(${index})"> + </button>
+                <span class="produto-preco">R$ ${parseFloat(produto.preco * produto.quantidade).toFixed(2)}</span>
+                <button class="remover-produto" onclick="removerDoCarrinho(${index})"> - </button>
             </div>
         `;
         listaCarrinho.innerHTML += itemHTML;
-        totalPreco += parseFloat(produto.preco);
+        totalPreco += parseFloat(produto.preco * produto.quantidade);
     });
 
     document.getElementById('total-preco').textContent = totalPreco.toFixed(2);
     atualizarContadorCarrinho();
 }
 
+function adicionarQuantidade(index) {
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    // Aumenta a quantidade do produto em 1
+    carrinho[index].quantidade += 1;
+
+    // Salva o carrinho atualizado no localStorage
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
+    // Atualiza o carrinho na interface
+    carregarCarrinho();
+}
+
+
 // Função para remover um item do carrinho
 function removerDoCarrinho(index) {
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    carrinho.splice(index, 1);
+    if (carrinho[index].quantidade > 1) {
+        // Reduz a quantidade se for maior que 1
+        carrinho[index].quantidade--;
+    } else {
+        // Remove do carrinho se a quantidade for 1
+        carrinho.splice(index, 1);
+    }
 
     if (carrinho.length === 0) {
         localStorage.removeItem('carrinho'); // Limpa o localStorage se estiver vazio

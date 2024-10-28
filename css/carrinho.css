@@ -28,6 +28,7 @@ h1 {
   display: flex;
   align-items: center; /* Alinhamento vertical */
   flex: 1; /* Permite que ocupe o espaço disponível */
+
 }
 
 .produto-imagem {
@@ -44,15 +45,31 @@ h1 {
 .produto-quantidade,
 .produto-preco {
   margin-left: 10px; /* Espaçamento à esquerda */
+  margin-right: 10px; /* Espaçamento à esquerda */
+  font-size: 1.5rem;
+}
+.adicionar-produto{
+  background-color: #4caf50;
+  color: white;
+  border: none; /* Remove a borda padrão */
+  padding: 5px 10px; /* Espaçamento interno */
+  border-radius: 4px; /* Bordas arredondadas */
+  cursor: pointer; /* Muda o cursor ao passar por cima */
+  font-size: 1rem;
+}
+.adicionar-produto:hover {
+  background-color: green; /* Tom mais escuro ao passar o mouse */
 }
 
-.remover-produto {
+.remover-produto{
   background-color: #e74c3c; /* Vermelho para o botão de remover */
   color: white;
   border: none; /* Remove a borda padrão */
   padding: 5px 10px; /* Espaçamento interno */
   border-radius: 4px; /* Bordas arredondadas */
   cursor: pointer; /* Muda o cursor ao passar por cima */
+  font-size: 1rem;
+
 }
 
 .remover-produto:hover {
@@ -63,6 +80,7 @@ h1 {
   font-size: 1.5em; /* Aumenta o tamanho da fonte do total */
   text-align: right; /* Alinha à direita */
   margin-top: 20px; /* Espaçamento superior */
+  
 }
 
 .finalizar-compra {
@@ -74,6 +92,7 @@ h1 {
   cursor: pointer;
   display: block; /* Faz o botão ocupar a largura total */
   width: 100%; /* Largura total */
+  font-size: 1rem;
   margin-top: 20px; /* Espaçamento superior */
 }
 
@@ -101,12 +120,16 @@ footer {
   cursor: pointer; /* Muda o cursor ao passar por cima */
   display: block; /* Faz o botão ocupar a largura total */
   width: 100%; /* Largura total */
-  margin-top: 20px; /* Espaçamento superior */
   font-size: 1em; /* Tamanho da fonte */
   font-weight: bold; /* Texto em negrito */
   text-align: center; /* Centraliza o texto */
+  font-size: 1rem;
+  margin-left: 20px; /* Espaçamento à esquerda */
+
 }
 
 #voltar-compras:hover {
   background-color: #2980b9; /* Tom mais escuro ao passar o mouse */
 }
+
+
