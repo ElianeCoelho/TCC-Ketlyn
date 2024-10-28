@@ -42,7 +42,20 @@ INSERT INTO produtos (nome, preco, qtdKg, imagem) VALUES
 ('Abacaxi', 3.90, 1, 'http://localhost:4000/src/abacaxi.jpg');
 
 
+-- Criação da tabela pagamentos
+CREATE TABLE pagamentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,               -- ID único para cada pagamento
+    id_usuario INT NOT NULL,                          -- ID do usuário que realiza o pagamento
+    id_produto INT NOT NULL,                          -- ID do produto comprado
+    metodo_pagamento ENUM('Cartão de Crédito', 'Boleto') NOT NULL, -- Método de pagamento
+    status_pagamento ENUM('Concluído', 'Pendente') NOT NULL, -- Status do pagamento
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    -- Data e hora do pagamento
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id), -- Relacionamento com a tabela de usuários
+    FOREIGN KEY (id_produto) REFERENCES produtos(id)  -- Relacionamento com a tabela de produtos
+);
 
+INSERT INTO pagamentos (id_usuario, id_produto, metodo_pagamento, status_pagamento)
+VALUES (1, 1, 'Cartão de Crédito', 'Concluído');
 --para uso no terminal executar db
 npm init -y
 npm install express mysql2 bcryptjs body-parser
