@@ -17,51 +17,90 @@
   }
   
   .divlogo {
-    width: 50%;
+    width: 25%;
   }
   
   /* Barra de pesquisa */
-  .barraPesquisa {
-    background-color: #fff;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
+.barraPesquisa {
+  background-color: #fff;
+  display: flex; /* Para alinhar o botão e o input */
+  width: 50%;
+  justify-content: center;
+}
+
+.barraPesquisa input {
+  color: rgb(7, 2, 2);
+  font-size: 16px;
+  background: transparent;
+  width: 300px; /* Reduzido para acomodar o botão */
+  height: 35px;
+  padding: 10px;
+  border: 3px solid #92eea9;
+  outline: none;
+  border-radius: 35px 0 0 35px; /* Bordas arredondadas apenas do lado esquerdo */
+  transition: all 0.5s;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #FFBB70;
+  margin-top: 50px;
+}
+
+.barraPesquisa input::placeholder {
+  color: #efefef;
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+}
+
+.barraPesquisa input:focus::placeholder {
+  opacity: 1;
+}
+
+.barraPesquisa input:hover,
+.barraPesquisa input:focus,
+.barraPesquisa input:not(:placeholder-shown) {
+  width: 300px; /* Alinhado com a largura ajustada */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #bde7aa;
+}
+
+/* Botão da lupa */
+#botaoPesquisa {
+  background: #92eea9;
+  border: 3px solid #92eea9;
+  border-left: none; /* Remove a borda entre o botão e o input */
+  border-radius: 0 35px 35px 0; /* Bordas arredondadas apenas do lado direito */
+  cursor: pointer;
+  padding: 5px 15px;
+  height: 35px;
+  margin-top: 50px; /* Alinha com o input */
+}
+
+#botaoPesquisa img {
+  width: 20px;
+  height: 20px;
+}
+
+ 
+  .div-carrinho-usuario{
+    display: flex;
+    width: 25%;
   }
   
-  .barraPesquisa input {
-    color: rgb(7, 2, 2);
-    font-size: 16px;
-    background: transparent;
-    width: 350px;
-    height: 35px;
-    padding: 10px;
-    border: 3px solid #92eea9;
-    outline: none;
-    border-radius: 35px;
-    transition: all 0.5s;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #FFBB70;
-    margin-top: 50px;
+  .div-carrinho{
+    width: 25%;
+    text-align: center;
   }
-  
-  .barraPesquisa input::placeholder {
-    color: #efefef;
-    opacity: 0;
-    transition: opacity 150ms ease-out;
+  .div-usuario{
+    width: 75%;
+    text-align: right;
   }
-  
-  .barraPesquisa input:focus::placeholder {
-    opacity: 1;
+
+  .div-usuario img{
+    width: 50px;
+    margin: 15px;
+
   }
-  
-  .barraPesquisa input:hover,
-  .barraPesquisa input:focus,
-  .barraPesquisa input:not(:placeholder-shown) {
-    width: 350px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #bde7aa;
-  }
-  
-  /* Estilos gerais para o carrinho */
-  .carrinho {
+
+
+   /* Estilos gerais para o carrinho */
+   .carrinho {
     margin: 15px;
     position: relative;
     display: inline-flex;
@@ -75,7 +114,7 @@
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
   }
-  
+
   .carrinho a {
     text-decoration: none;
     color: inherit;
