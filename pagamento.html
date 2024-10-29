@@ -35,6 +35,7 @@
 
         input[type="text"],
         input[type="tel"],
+        input[type="number"],
         select {
             width: 100%;
             padding: 10px;
@@ -56,16 +57,28 @@
         button:hover {
             background-color: #218838;
         }
+
+        .troco-container {
+            display: none; /* Escondido por padrão */
+            margin-top: 20px;
+        }
+
+        .valor-total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="payment-container">
         <h1>Pagar</h1>
+        <p id="valor-total" style="font-size: 20px; text-align: center; color: #28a745;">Total: R$ 0.00</p> <!-- Exibição do total -->
         <form id="payment-form">
             <label for="metodo_pagamento">Método de Pagamento:</label>
             <select id="metodo_pagamento" required>
-                <option value="Cartão de Crédito">Cartão de Crédito</option>
-                <option value="Boleto">Boleto</option>
+                <option value="Cartão">Cartão</option>
+                <option value="pix">PIX</option>
+                <option value="dinheiro">Dinheiro</option>              
             </select>
 
             <label for="nome">Nome do Titular:</label>
@@ -77,18 +90,66 @@
             <label for="telefone">Telefone:</label>
             <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" required>
 
+            <div class="troco-container" id="troco-container">
+                <label for="valor_pago">Deseja troco? (Se sim, informe o valor pago):</label>
+                <input type="number" id="valor_pago" name="valor_pago" placeholder="Valor pago" min="0" step="0.01">
+                <button type="button" id="calcular_troco">Calcular Troco</button>
+                <p id="resultado_troco" style="margin-top: 10px;"></p>
+            </div>
+
             <button type="submit">Finalizar Pagamento</button>
         </form>
     </div>
 
     <script>
+        // Lógica para exibir o valor total
+        document.addEventListener('DOMContentLoaded', function() {
+            const valorTotal = localStorage.getItem('valorTotal'); // Recupera o valor total
+            if (valorTotal) {
+                document.getElementById('valor-total').textContent = `Total: R$ ${valorTotal}`; // Atualiza o texto com o valor total
+            }
+        });
+
+        // Exibir/ocultar campo de troco dependendo do método de pagamento selecionado
+        document.getElementById('metodo_pagamento').addEventListener('change', function() {
+            const trocoContainer = document.getElementById('troco-container');
+            if (this.value === 'dinheiro') {
+                trocoContainer.style.display = 'block'; // Mostra a seção de troco
+            } else {
+                trocoContainer.style.display = 'none'; // Esconde a seção de troco
+                document.getElementById('resultado_troco').textContent = ''; // Limpa o resultado do troco
+            }
+        });
+
+        // Cálculo do troco
+        document.getElementById('calcular_troco').addEventListener('click', function() {
+            const valorPago = parseFloat(document.getElementById('valor_pago').value);
+            const total = parseFloat(localStorage.getItem('valorTotal')); // Recupera o valor total do localStorage
+
+            if (!isNaN(valorPago) && !isNaN(total)) {
+                if (valorPago <= total) {
+                    alert('O valor pago deve ser maior que o total a pagar.');
+                    document.getElementById('resultado_troco').textContent = '';
+                } else {
+                    const troco = valorPago - total;
+                    const resultadoTroco = document.getElementById('resultado_troco');
+                    resultadoTroco.textContent = 'Troco: R$ ' + troco.toFixed(2);
+                }
+            } else {
+                alert('Por favor, insira um valor válido.');
+            }
+        });
+
         // Lógica para o envio do formulário pode ser implementada aqui
         document.getElementById('payment-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Aqui você pode adicionar a lógica para processar o pagamento
-            alert('Pagamento realizado com sucesso!');
-            // Redirecionar ou atualizar o estado da aplicação conforme necessário
-        });
+        event.preventDefault();
+        // Aqui você pode adicionar a lógica para processar o pagamento
+        // Após a confirmação do pagamento, redireciona para a página de confirmação
+        alert('Pagamento realizado com sucesso!'); // Mensagem de sucesso (pode ser removida ou alterada)
+
+        // Redireciona para a página de confirmação
+        window.location.href = 'confirmacaoDeCompra.html'; // Substitua pelo caminho correto da sua página de confirmação
+    });
     </script>
 </body>
 </html>

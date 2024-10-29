@@ -143,3 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarContadorCarrinho();
     atualizarValorTotalCarrinho(); // Certifica-se de que o valor total é atualizado na carga inicial
 });
+
+
+// Dentro do evento de clique para o botão "Finalizar Compra"
+document.getElementById('finalizar-compra').addEventListener('click', function() {
+    const total = document.getElementById('total-preco').textContent; // Captura o valor total
+    localStorage.setItem('valorTotal', total); // Armazena o valor total no localStorage
+    window.location.href = 'pagamento.html'; // Substitua pelo caminho correto da sua página de pagamento
+});
+
