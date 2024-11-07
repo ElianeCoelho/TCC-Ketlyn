@@ -76,10 +76,16 @@ app.post('/login', (req, res) => {
             return res.status(400).json({ message: 'CPF ou senha inválidos!' });
         }
 
-        // Retorna o nome do usuário em JSON em vez de redirecionar diretamente
-        res.json({ success: true, nome: user.usuario }); // Envia o nome do usuário
+        // Retorna o nome, cpf e telefone do usuário em JSON
+        res.json({
+            success: true,
+            nome: user.usuario,     // Substitua por `user.nome` se o campo for assim no banco de dados
+            cpf: user.cpf,
+            telefone: user.telefone
+        });
     });
 });
+
 
 
 

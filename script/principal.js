@@ -1,22 +1,43 @@
 
 document.addEventListener("DOMContentLoaded", function() {
-    const divUsuario = document.querySelector(".div-usuario");
+     const divUsuario = document.querySelector(".div-usuario");
+    const iconeUsuario = document.getElementById("icone-usuario");
+    const menuUsuario = document.getElementById("menu-usuario");
     const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-    if (usuarioLogado && usuarioLogado.nome) { // Verifica se o nome está presente
-        divUsuario.innerHTML = `
-            <span>Bem-vindo, ${usuarioLogado.nome}</span>
-            <button id="logout">Logout</button>
+
+
+    if (usuarioLogado && usuarioLogado.nome) {
+        // Cria o menu suspenso com o nome do usuário e botão de logout
+        menuUsuario.innerHTML = `
+            <ul>
+                <li>Bem-vindo, ${usuarioLogado.nome}</li>
+                <li><button id="logout">Logout</button></li>
+            </ul>
         `;
 
+        // Adiciona o evento de logout
         document.getElementById("logout").addEventListener("click", function() {
             localStorage.removeItem("usuarioLogado");
             window.location.href = "cadastroCliente.html";
         });
-    } else {
-        console.error("Nenhum usuário logado encontrado ou nome ausente.");
     }
 
+    // Exibe ou oculta o menu ao clicar no ícone do usuário
+    iconeUsuario.addEventListener("click", function() {
+        if (menuUsuario.style.display === "none" || menuUsuario.style.display === "") {
+            menuUsuario.style.display = "block";
+        } else {
+            menuUsuario.style.display = "none";
+        }
+    });
+
+    // Fecha o menu se o usuário clicar fora dele
+    document.addEventListener("click", function(event) {
+        if (!divUsuario.contains(event.target)) {
+            menuUsuario.style.display = "none";
+        }
+    });
 
     
     // Função para carregar os produtos do backend

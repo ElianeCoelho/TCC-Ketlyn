@@ -102,54 +102,58 @@
     </div>
 
     <script>
-        // Lógica para exibir o valor total
         document.addEventListener('DOMContentLoaded', function() {
-            const valorTotal = localStorage.getItem('valorTotal'); // Recupera o valor total
-            if (valorTotal) {
-                document.getElementById('valor-total').textContent = `Total: R$ ${valorTotal}`; // Atualiza o texto com o valor total
-            }
-        });
+    // Recupera o valor total da compra
+    const valorTotal = localStorage.getItem('valorTotal');
+    if (valorTotal) {
+        document.getElementById('valor-total').textContent = `Total: R$ ${valorTotal}`;
+    }
 
-        // Exibir/ocultar campo de troco dependendo do método de pagamento selecionado
-        document.getElementById('metodo_pagamento').addEventListener('change', function() {
-            const trocoContainer = document.getElementById('troco-container');
-            if (this.value === 'dinheiro') {
-                trocoContainer.style.display = 'block'; // Mostra a seção de troco
-            } else {
-                trocoContainer.style.display = 'none'; // Esconde a seção de troco
-                document.getElementById('resultado_troco').textContent = ''; // Limpa o resultado do troco
-            }
-        });
+    // Preenche automaticamente os dados do usuário, se estiverem disponíveis
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    if (usuarioLogado) {
+        document.getElementById('nome').value = usuarioLogado.nome || '';
+        document.getElementById('cpf').value = usuarioLogado.cpf || '';
+        document.getElementById('telefone').value = usuarioLogado.telefone || '';
+    }
+});
 
-        // Cálculo do troco
-        document.getElementById('calcular_troco').addEventListener('click', function() {
-            const valorPago = parseFloat(document.getElementById('valor_pago').value);
-            const total = parseFloat(localStorage.getItem('valorTotal')); // Recupera o valor total do localStorage
+// Exibir/ocultar campo de troco dependendo do método de pagamento selecionado
+document.getElementById('metodo_pagamento').addEventListener('change', function() {
+    const trocoContainer = document.getElementById('troco-container');
+    if (this.value === 'dinheiro') {
+        trocoContainer.style.display = 'block';
+    } else {
+        trocoContainer.style.display = 'none';
+        document.getElementById('resultado_troco').textContent = '';
+    }
+});
 
-            if (!isNaN(valorPago) && !isNaN(total)) {
-                if (valorPago <= total) {
-                    alert('O valor pago deve ser maior que o total a pagar.');
-                    document.getElementById('resultado_troco').textContent = '';
-                } else {
-                    const troco = valorPago - total;
-                    const resultadoTroco = document.getElementById('resultado_troco');
-                    resultadoTroco.textContent = 'Troco: R$ ' + troco.toFixed(2);
-                }
-            } else {
-                alert('Por favor, insira um valor válido.');
-            }
-        });
+// Cálculo do troco
+document.getElementById('calcular_troco').addEventListener('click', function() {
+    const valorPago = parseFloat(document.getElementById('valor_pago').value);
+    const total = parseFloat(localStorage.getItem('valorTotal'));
 
-        // Lógica para o envio do formulário pode ser implementada aqui
-        document.getElementById('payment-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        // Aqui você pode adicionar a lógica para processar o pagamento
-        // Após a confirmação do pagamento, redireciona para a página de confirmação
-        alert('Pagamento realizado com sucesso!'); // Mensagem de sucesso (pode ser removida ou alterada)
+    if (!isNaN(valorPago) && !isNaN(total)) {
+        if (valorPago <= total) {
+            alert('O valor pago deve ser maior que o total a pagar.');
+            document.getElementById('resultado_troco').textContent = '';
+        } else {
+            const troco = valorPago - total;
+            document.getElementById('resultado_troco').textContent = 'Troco: R$ ' + troco.toFixed(2);
+        }
+    } else {
+        alert('Por favor, insira um valor válido.');
+    }
+});
 
-        // Redireciona para a página de confirmação
-        window.location.href = 'confirmacaoDeCompra.html'; // Substitua pelo caminho correto da sua página de confirmação
-    });
+// Lógica para o envio do formulário de pagamento
+document.getElementById('payment-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    alert('Pagamento realizado com sucesso!');
+    window.location.href = 'confirmacaoDeCompra.html';
+});
+
     </script>
 </body>
 </html>

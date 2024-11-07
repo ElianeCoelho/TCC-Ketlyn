@@ -99,6 +99,55 @@
   }
 
 
+  /* Estilização do menu suspenso dentro de .div-usuario */
+#menu-usuario {
+  position: absolute; /* Permite posicionamento preciso */
+  right: 15px; /* Alinha à direita do ícone */
+  top: 70px; /* Ajusta a posição para logo abaixo do ícone */
+  background-color: #ffffff; /* Cor de fundo do menu */
+  border: 1px solid #ccc; /* Bordas para o menu */
+  border-radius: 5px; /* Bordas arredondadas */
+  width: 200px; /* Largura do menu */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
+  display: none; /* Oculto por padrão */
+  z-index: 1000; /* Garante que o menu fique acima de outros elementos */
+  padding: 10px 0; /* Espaçamento interno */
+}
+
+/* Estilização do conteúdo do menu (ul e li) */
+#menu-usuario ul {
+  list-style-type: none; /* Remove marcadores de lista */
+  padding: 0; /* Remove o padding padrão */
+  margin: 0; /* Remove o margin padrão */
+}
+
+#menu-usuario li {
+  padding: 10px 20px; /* Espaçamento interno dos itens */
+  cursor: pointer; /* Mostra um ponteiro para itens clicáveis */
+  color: #333; /* Cor do texto */
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+/* Estilo para o item de logout para destacar */
+#menu-usuario li button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+/* Adiciona efeito de hover aos itens do menu */
+#menu-usuario li:hover {
+  background-color: #f5f5f5; /* Cor de fundo ao passar o mouse */
+}
+
+
+
    /* Estilos gerais para o carrinho */
    .carrinho {
     margin: 15px;
