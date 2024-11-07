@@ -1,6 +1,24 @@
 
 document.addEventListener("DOMContentLoaded", function() {
-   
+    const divUsuario = document.querySelector(".div-usuario");
+    const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+    if (usuarioLogado && usuarioLogado.nome) { // Verifica se o nome está presente
+        divUsuario.innerHTML = `
+            <span>Bem-vindo, ${usuarioLogado.nome}</span>
+            <button id="logout">Logout</button>
+        `;
+
+        document.getElementById("logout").addEventListener("click", function() {
+            localStorage.removeItem("usuarioLogado");
+            window.location.href = "cadastroCliente.html";
+        });
+    } else {
+        console.error("Nenhum usuário logado encontrado ou nome ausente.");
+    }
+
+
+    
     // Função para carregar os produtos do backend
     function carregarProdutos() {
         fetch('http://localhost:4000/api/produtos') // Substitua pela URL correta do seu backend

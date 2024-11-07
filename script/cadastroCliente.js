@@ -49,3 +49,31 @@ document.getElementById('cep').addEventListener('blur', function() {
         alert('CEP inválido. Por favor, insira um CEP com 8 dígitos.');
     }
 });
+
+
+
+
+document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    const cpf = document.querySelector("#login-form input[name='cpf']").value;
+    const senha = document.querySelector("#login-form input[name='senha']").value;
+
+    // Envia o CPF e a senha para o servidor e espera a resposta com o nome
+    fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cpf, senha })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Salva o nome do usuário no localStorage
+            localStorage.setItem("usuarioLogado", JSON.stringify({ nome: data.nome }));
+            window.location.href = "principal.html";
+        } else {
+            alert("CPF ou senha incorretos.");
+        }
+    })
+    .catch(error => console.error("Erro ao fazer login:", error));
+});

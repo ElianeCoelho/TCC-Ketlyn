@@ -76,10 +76,11 @@ app.post('/login', (req, res) => {
             return res.status(400).json({ message: 'CPF ou senha inválidos!' });
         }
 
-        // Redirecionar para a página de compra
-        res.redirect('/principal.html'); // Adicione esta linha para redirecionar
+        // Retorna o nome do usuário em JSON em vez de redirecionar diretamente
+        res.json({ success: true, nome: user.usuario }); // Envia o nome do usuário
     });
 });
+
 
 
 // Endpoint para obter produtos
