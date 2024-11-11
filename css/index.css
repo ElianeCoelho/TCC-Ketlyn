@@ -1,0 +1,89 @@
+body {
+    background-color: rgb(35, 112, 35);
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, rgb(35, 112, 35), rgb(25, 92, 25));
+    color: #fff;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.video-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+video {
+    width: 80%;
+    max-width: 600px;
+}
+
+.btn-entrar {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: rgb(35, 112, 35);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: rgb(50, 140, 50);
+    transform: scale(1.05);
+}
+
+
+.sobre-nos {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.05);
+    margin: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.sobre-nos p {
+    flex: 1 1 45%;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+
+footer {
+    background-color: #222;
+    color: #aaa;
+    padding: 20px;
+    text-align: center;
+}
+
+footer a {
+    color: #aaa;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    color: #fff;
+}
